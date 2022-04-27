@@ -12,6 +12,9 @@
 main:
 stmfd sp!, {lr}
 
+Menu:
+   ldr r0, = menu
+   bl puts 
 
 
 .data
