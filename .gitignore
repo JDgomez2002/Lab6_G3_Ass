@@ -1,3 +1,4 @@
 *.class
 *.drawio
 *pruebas.s
+*calc.s
