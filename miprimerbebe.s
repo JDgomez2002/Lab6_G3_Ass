@@ -142,8 +142,6 @@ Contar_Vocales:
 	bx lr @return
 
 
-// new new shit here // 
-
 Misma_Longitud:
 	ldr r0,=samelenght
 	bl puts
@@ -196,7 +194,7 @@ salida:
 .data
 .align 2
 menu: 
-    .asciz "\nMi Primer Bebe!\nBienvenido!\nEn este programa podras comprobar la compatibilidad del nombre y apellido de tu futuro bebe...\nDeberas ingresar su nombre y apellido, y el numero de letras de los mismos!"
+    .asciz "\nMi Primer Bebe!\nBienvenido!\nEn este programa podras comprobar la compatibilidad del nombre y apellido de tu futuro bebe...\nDeberas ingresar su nombre y apellido!"
 
 ingrese_nombre: 
     .asciz "\nIngrese nombre: "
@@ -249,11 +247,11 @@ Total_Puntos:
     .word 0 
 
 samelenght: 
-    .asciz "\n"
+    .asciz "\n1. El largo del nombre y apellido es el mismo...\n"
 samevowels: 
-    .asciz "\n"
+    .asciz "2. El nombre y apellido tienen el mismo numero de vocales...\n"
 samestartend: 
-    .asciz "\n"
+    .asciz "3. El nombre y apellido tienen la misma letra final...\n"
 
 result: 
-    .asciz "Felicidades!!!\nEl punteo total es de: %d \n\n"
+    .asciz "Felicidades!!!\nEl punteo total es de: %d de 3 puntos!\n\nMuchas gracias por confiar en nosotros!!!\n\n"
