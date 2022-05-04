@@ -16,11 +16,10 @@ main:
 	bl puts
 	@@se lee el nombre que ingresa el usuario
 	ldr r0,=ingrese_nombre @@formato de ingresar nombre
-	bl puts 
+	bl puts
 	ldr r0,=nombre @@ variable que almacena el nombre
 	ldr r1,=nombre_valor @@guarda el string del nombre
 	bl scanf
-
 
 	@@- se repite la instruccion de nombre pero para el apellido
 	ldr r0,=ingrese_apellido
@@ -197,7 +196,7 @@ salida:
 .data
 .align 2
 menu: 
-    .asciz "\nMi Primer Bebe!\nBienvenido!\nEn este programa podras comprobar la compatibilidad del nombre y apellido de tu futuro bebe...\nDeberas ingresar su nombre y apellido, y el numero de letras de los mismos!\n"
+    .asciz "\nMi Primer Bebe!\nBienvenido!\nEn este programa podras comprobar la compatibilidad del nombre y apellido de tu futuro bebe...\nDeberas ingresar su nombre y apellido, y el numero de letras de los mismos!"
 
 ingrese_nombre: 
     .asciz "\nIngrese nombre: "
@@ -257,4 +256,4 @@ samestartend:
     .asciz "\n"
 
 result: 
-    .asciz "el punteo total es de: %d \n"
+    .asciz "Felicidades!!!\nEl punteo total es de: %d \n\n"
