@@ -236,7 +236,7 @@ Test1:
     .asciz "Llegamos aqui"
 
 
-@@vocales en el nombre y su tamaño
+@@vocales en el nombre, y su tamaño
 
 Vocales_Nombre: 
     .word 0
