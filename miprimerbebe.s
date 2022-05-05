@@ -5,7 +5,6 @@
 @Javier Vasquez
 @Jose Daniel Gomez
 
-
 	.text
 	.align		2
 	.global		main

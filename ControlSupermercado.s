@@ -15,6 +15,8 @@ stmfd sp!, {lr}
 ldr r0, = bienvenida
 bl puts
 
+@@Menu principal del programa
+@@Permite
 Menu:
    /*impresion de menu y pide comando*/
    Menu:
@@ -22,7 +24,7 @@ Menu:
    bl puts
    ldr r0,=ingrese_desicion
    bl puts
-   ldr r0,=formato_asciz_char_menu
+   ldr r0,=formato_decimal
    ldr r1,=desicion_valor
    bl scanf
 
@@ -31,11 +33,11 @@ Menu:
 opcion_menu:
    ldr r4, = desicion_valor
    ldrb r4,[r4]
-   cmp r4, #'1'
+   cmp r4, #1
    beq Agregar_producto
-   cmpne r4, #'2'
+   cmpne r4, #2
    beq Facturar
-   cmpne r4, #'3'
+   cmpne r4, #3
    beq Salir
    bne Error
 
@@ -48,34 +50,32 @@ Agregar_producto:
    bl puts
    ldr r0, = ingrese_desicion
    bl puts
-   ldr r0, = formato_asciz_char_producto
+   ldr r0, = formato_decimal
    ldr r1, = desicion_valor_compra
    bl scanf
-
-
-
-
-
    
+   /*[1,5]
+   [3,2]*/
+
    @Clasificar productos
    ldr r5, = desicion_valor_compra
    ldrb r4,[r5]
    ldr r6, = productos
-   cmp r4, #'1' @ LECHE
+   cmp r4, #1 @ LECHE
    strb r4, [r6]
-   cmpne r4, #'2'@ GALLETAS
+   cmpne r4, #2@ GALLETAS
    strb r4, [r6]
-   cmpne r4, #'3' @ MANTEQUILLA
+   cmpne r4, #3 @ MANTEQUILLA
    strb r4, [r6]
-   cmpne r4, #'4'@ QUESO
+   cmpne r4, #4@ QUESO
    strb r4, [r6]
-   cmpne r4, #'5'@ UNIPAN
+   cmpne r4, #5 @ UNIPAN
    strb r4, [r6]
-   cmpne r4, #'6' @ JALEA
+   cmpne r4, #6 @ JALEA
    strb r4, [r6]
-   cmpne r4, #'7' @ UNIYOGURT
+   cmpne r4, #7 @ UNIYOGURT
    strb r4, [r6]
-   cmpne r4, #'8' @ LB MANZANAS
+   cmpne r4, #8 @ LB MANZANAS
    strb r4, [r6]
    
 
@@ -152,10 +152,10 @@ formato_asciz_char_producto:
    .asciz "%c"
 
 desicion_valor:
-   .byte 0
+   .word 0
 
 desicion_valor_compra:
-   .byte 0
+   .word 0
 
 despedida:
    .asciz "\n-----------------------------\n\nMuchas gracias por comprar con nosotros!\n\nEsperamos verlo pronto!!!\n\n"
