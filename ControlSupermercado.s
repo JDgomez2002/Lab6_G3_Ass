@@ -12,21 +12,26 @@
 main:
 stmfd sp!, {lr}
 
+ldr r0, = bienvenida
+bl puts
+
 Menu:
-   ldr r0, = bienvenida
-   bl puts 
-   ldr r0, = menu_principal
+   /*impresion de menu y pide comando*/
+   Menu:
+   ldr r0,=menu_principal
    bl puts
-   ldr r0, = ingrese_desicion
+   ldr r0,=ingrese_desicion
    bl puts
-   ldr r0, = formato_asciz_char
-   ldr r1, = desicion_valor
+   ldr r0,=formato_asciz_char_menu
+   ldr r1,=desicion_valor
    bl scanf
 
+
+
 opcion_menu:
-   ldr r4 = desicion_valor
-   ldr r4,[r4]
-   cmp r4,#'1'
+   ldr r4, = desicion_valor
+   ldrb r4,[r4]
+   cmp r4, #'1'
    beq Agregar_producto
    cmpne r4, #'2'
    beq Facturar
@@ -34,17 +39,77 @@ opcion_menu:
    beq Salir
    bne Error
 
+/*
+	ldrb r1,[r5],#1
+   strb r1,[r5]
+*/
 Agregar_producto:
    ldr r0, = menu_compra
    bl puts
    ldr r0, = ingrese_desicion
    bl puts
-   ldr r0, = formato_asciz_char
-   ldr r1, = desicion_valor
+   ldr r0, = formato_asciz_char_producto
+   ldr r1, = desicion_valor_compra
    bl scanf
+
+
+
+
+
+   
+   @Clasificar productos
+   ldr r5, = desicion_valor_compra
+   ldrb r4,[r5]
+   ldr r6, = productos
+   cmp r4, #'1' @ LECHE
+   strb r4, [r6]
+   cmpne r4, #'2'@ GALLETAS
+   strb r4, [r6]
+   cmpne r4, #'3' @ MANTEQUILLA
+   strb r4, [r6]
+   cmpne r4, #'4'@ QUESO
+   strb r4, [r6]
+   cmpne r4, #'5'@ UNIPAN
+   strb r4, [r6]
+   cmpne r4, #'6' @ JALEA
+   strb r4, [r6]
+   cmpne r4, #'7' @ UNIYOGURT
+   strb r4, [r6]
+   cmpne r4, #'8' @ LB MANZANAS
+   strb r4, [r6]
    
 
+   @cantidad de productos
+   ldr r0, = solcitar_cantidad_productos
+   bl puts
+   ldr r0, = formato_decimal
+   ldr r1, = cantidad_producto
+   bl scanf
+   ldr r0, = cantidad_producto
+   ldrb r0, [r0]
+   ldr r1, = cantidad_productos_valor
+   strb r0, [r1]
+
+   ldr r0, = producto_agregado
+   bl puts
+   b Menu
+
 Facturar:
+   @@Bloque de leer nombre 
+	@@se lee el nombre que ingresa el usuario
+	ldr r0,=ingrese_nombre @@formato de ingresar nombre
+	bl puts 
+	ldr r0,=nombre @@ variable que almacena el nombre
+	ldr r1,=nombre_valor @@guarda el string del nombre
+	bl scanf
+   ldr r0, = factura1
+   bl puts
+   ldr r0, = nombre_factura
+   bl puts
+   ldr r0, = nombre_valor
+   bl puts
+   ldr r0, = factura_productos
+   bl puts
 
 
 Salir:
@@ -69,7 +134,7 @@ Error:
 .align 2
 
 bienvenida:
-   .asciz "\nBienvenido al control de Supermercado!!!\nEn este programa podras realizar compras y facturarlas!\n"
+   .asciz "\nTBienvenido al control de Supermercado!!!\nEn este programa podras realizar compras y facturarlas!\n"
 
 menu_principal:
    .asciz "\nMENU PRINCIPAL\n1. Agregar producto al carrito\n2.Facturar\n3.Salir"
@@ -80,14 +145,56 @@ menu_compra:
 ingrese_desicion:
    .asciz "\nIngrese su desicion: "
 
-formato_asciz_char:
+formato_asciz_char_menu:
+   .asciz "%c"
+
+formato_asciz_char_producto:
    .asciz "%c"
 
 desicion_valor:
    .byte 0
 
+desicion_valor_compra:
+   .byte 0
+
 despedida:
-   .asciz "\nMuchas gracias por comprar con nosotros!\n\nEsperamos verlo pronto!!!\n\n"
+   .asciz "\n-----------------------------\n\nMuchas gracias por comprar con nosotros!\n\nEsperamos verlo pronto!!!\n\n"
 
 error:
-   .asciz "\nIngreso incorrecto, siga instrucciones por favor...\n"
+   .asciz "\n\tIngreso incorrecto, siga instrucciones por favor...\n"
+
+ingrese_nombre: 
+   .asciz "\nPor favor ingresa el nombre de la factura: "
+
+nombre: 
+    .asciz "%19s"
+
+nombre_valor:
+    .asciz "                   "
+
+productos:
+   .asciz "                   "
+
+cantidad_producto:
+   .word 0
+
+solcitar_cantidad_productos:
+   .asciz "\nIngrese la cantidad de producto deseado: "
+
+formato_decimal:
+   .asciz "%d"
+
+cantidad_productos_valor:
+   .asciz "                   "
+
+producto_agregado:
+   .asciz "\nProducto agregado al carrito exitosamente!!!\n"
+
+factura1:
+   .asciz "\n---------- FACTURA ----------\n"
+
+nombre_factura:
+   .asciz "Nombre del cliente: "
+
+factura_productos:
+   .asciz "\nCarrito:"
